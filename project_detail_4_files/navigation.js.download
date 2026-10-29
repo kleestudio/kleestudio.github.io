@@ -1,0 +1,15 @@
+(function () {
+    const legacyRoot = 'file:///E:/KLEE/KLEE%20WEBSITE/';
+
+    document.querySelectorAll('a[href^="file:///"]').forEach((link) => {
+        const legacyHref = link.getAttribute('href');
+        if (!legacyHref || !legacyHref.startsWith(legacyRoot)) return;
+
+        let sitePath = legacyHref.slice(legacyRoot.length);
+        if (sitePath.startsWith('portfolio.html')) {
+            sitePath = sitePath.replace('portfolio.html', 'projects.html');
+        }
+
+        link.setAttribute('href', `/${sitePath}`);
+    });
+})();
